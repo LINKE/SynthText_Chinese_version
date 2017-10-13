@@ -42,3 +42,17 @@ def time_limit(seconds):
         yield
     finally:
         signal.alarm(0)
+
+# import threading
+# import thread
+# @contextmanager
+# def time_limit(seconds, msg=''):
+#     timer = threading.Timer(seconds, lambda: thread.interrupt_main())
+#     timer.start()
+#     try:
+#         yield
+#     except KeyboardInterrupt:
+#         raise TimeoutException("Timed out for operation {}".format(msg))
+#     finally:
+#         # if the action ends in specified time, timer is canceled
+#         timer.cancel()

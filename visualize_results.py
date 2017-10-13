@@ -24,7 +24,7 @@ def viz_textbb(text_im, charBB_list, wordBB, alpha=1.0):
     plt.close(1)
     plt.figure(1)
     plt.imshow(text_im)
-    plt.hold(True)
+    # plt.hold(True)
     H,W = text_im.shape[:2]
 
     # plot the character-BB:
@@ -48,7 +48,8 @@ def viz_textbb(text_im, charBB_list, wordBB, alpha=1.0):
 
     plt.gca().set_xlim([0,W-1])
     plt.gca().set_ylim([H-1,0])
-    plt.show(block=False)
+    # plt.show(block=False)
+    plt.show()
 
 def main(db_fname):
     db = h5py.File(db_fname, 'r')
@@ -60,16 +61,18 @@ def main(db_fname):
         wordBB = db['data'][k].attrs['wordBB']
         txt = db['data'][k].attrs['txt']
 
-        viz_textbb(rgb, [charBB], wordBB)
         print "image name        : ", colorize(Color.RED, k, bold=True)
         print "  ** no. of chars : ", colorize(Color.YELLOW, charBB.shape[-1])
         print "  ** no. of words : ", colorize(Color.YELLOW, wordBB.shape[-1])
-        print "  ** text         : ", colorize(Color.GREEN, txt)
+        print "  ** text         : ", colorize(Color.GREEN, '\t\t'.join(txt))
+        
+        viz_textbb(rgb, [charBB], wordBB)
 
         if 'q' in raw_input("next? ('q' to exit) : "):
             break
     db.close()
 
 if __name__=='__main__':
-    main('results/SynthText_8000.h5')
+    # main('results/SynthText_8000.h5')
+    main('results/SynthText_cartoon_viz.h5')
 
